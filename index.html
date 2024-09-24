@@ -1,17 +1,198 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <ul id="menulist"> 
-        <li class="menuitem"><a href="form.html">form.html</a></li>
-        <li class="menuitem"><a href="form_js.html">form_js</a></li>
-        <li class="menuitem"><a href="form_nostyle.html">form_nostyle</a></li>
-        <li class="menuitem"><a href="form_style.html">form_style</a></li>
-      </ul>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>My Daily Diary</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/my.css">
+
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
+    <script>
+        function confirmDelete(event) {
+            event.preventDefault();
+            var confirmDelete = confirm("게시물을 삭제할까요?");
+            if (confirmDelete) {
+                alert("게시물이 삭제되었습니다.");
+                window.location.href = "index.html"; 
+                return false; 
+            } else {
+                alert("삭제가 취소되었습니다.");
+                window.location.href = "index.html"; 
+                return false; 
+            }
+        }
+
+        $(document).ready(function(){
+            $(".delete").on("click", confirmDelete);
+        });
+    </script>
+    </head>
+    <body>
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2><b>Daily Diary</b></h2></div>
+                        <div class="col-sm-4">
+                            <a href="add.html" type="button" class="btn btn-info add-new" disabled="disabled"><i class="fa fa-plus"></i> Add New</a>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>제목</Title></th>
+                            <th>내용</th>
+                            <th>년/월/일</th>
+                            <th>요일</th>
+                            <th>날씨</th>
+                            <th>기타</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>하루 일정</td>
+                            <td>오늘 하루, 분주하게 움직이며 많은 일들을...</td>
+                            <td>2024/09/22</td>
+                            <td>월요일</td>
+                            <td>맑음</td>
+                            <td>
+                                <a href="view.html" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                <a href="edit.html" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons"></i></a>
+                                <a href="" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>하루 일정</td>
+                            <td>오늘 하루, 분주하게 움직이며 많은 일들을...</td>
+                            <td>2024/09/22</td>
+                            <td>월요일</td>
+                            <td>맑음</td>
+                            <td>
+                                <a href="view.html" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                <a href="edit.html" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons"></i></a>
+                                <a href="delete.html" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>하루 일정</td>
+                            <td>오늘 하루, 분주하게 움직이며 많은 일들을...</td>
+                            <td>2024/09/22</td>
+                            <td>월요일</td>
+                            <td>맑음</td>
+                            <td>
+                                <a href="view.html" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                <a href="edit.html" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons"></i></a>
+                                <a href="delete.html" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>하루 일정</td>
+                            <td>오늘 하루, 분주하게 움직이며 많은 일들을...</td>
+                            <td>2024/09/22</td>
+                            <td>월요일</td>
+                            <td>맑음</td>
+                            <td>
+                                <a href="view.html" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                <a href="edit.html" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons"></i></a>
+                                <a href="delete.html" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>하루 일정</td>
+                            <td>오늘 하루, 분주하게 움직이며 많은 일들을...</td>
+                            <td>2024/09/22</td>
+                            <td>월요일</td>
+                            <td>맑음</td>
+                            <td>
+                                <a href="view.html" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                <a href="edit.html" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons"></i></a>
+                                <a href="delete.html" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
+                            </td>
+                        </tr>   
+                        <tr>
+                        </tr>
+                            <td>6</td>
+                            <td>하루 일정</td>
+                            <td>오늘 하루, 분주하게 움직이며 많은 일들을...</td>
+                            <td>2024/09/22</td>
+                            <td>월요일</td>
+                            <td>맑음</td>
+                            <td>
+                                <a href="view.html" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                <a href="edit.html" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons"></i></a>
+                                <a href="delete.html" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                            <td>7</td>
+                            <td>하루 일정</td>
+                            <td>오늘 하루, 분주하게 움직이며 많은 일들을...</td>
+                            <td>2024/09/22</td>
+                            <td>월요일</td>
+                            <td>맑음</td>
+                            <td>
+                                <a href="view.html" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                <a href="edit.html" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons"></i></a>
+                                <a href="delete.html" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                            <td>8</td>
+                            <td>하루 일정</td>
+                            <td>오늘 하루, 분주하게 움직이며 많은 일들을...</td>
+                            <td>2024/09/22</td>
+                            <td>월요일</td>
+                            <td>맑음</td>
+                            <td>
+                                <a href="view.html" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                <a href="edit.html" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons"></i></a>
+                                <a href="delete.html" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                            <td>9</td>
+                            <td>하루 일정</td>
+                            <td>오늘 하루, 분주하게 움직이며 많은 일들을...</td>
+                            <td>2024/09/22</td>
+                            <td>월요일</td>
+                            <td>맑음</td>
+                            <td>
+                                <a href="view.html" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                <a href="edit.html" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons"></i></a>
+                                <a href="delete.html" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
+                            </td>
+                        </tr> 
+                        <tr></tr>
+                            <td>10</td>
+                            <td>하루 일정</td>
+                            <td>오늘 하루, 분주하게 움직이며 많은 일들을...</td>
+                            <td>2024/09/22</td>
+                            <td>월요일</td>
+                            <td>맑음</td>
+                            <td>
+                                <a href="view.html" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                <a href="edit.html" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons"></i></a>
+                                <a href="delete.html" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
+                            </td>
+                        </tr>   
+                    </tbody>
+                </table>
+            </div>
+        </div>  
+    </div>   
     
-</body>
-</html>
+    </body></html>
