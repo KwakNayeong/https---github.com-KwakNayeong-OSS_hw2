@@ -15,16 +15,13 @@
     </script>
     <script>
         function confirmDelete(event) {
-            event.preventDefault();
+            event.preventDefault(); 
             var confirmDelete = confirm("게시물을 삭제할까요?");
             if (confirmDelete) {
                 alert("게시물이 삭제되었습니다.");
                 window.location.href = "index.html"; 
-                return false; 
             } else {
                 alert("삭제가 취소되었습니다.");
-                window.location.href = "index.html"; 
-                return false; 
             }
         }
 
@@ -68,7 +65,7 @@
                             <td>
                                 <a href="view.html" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
                                 <a href="edit.html" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons"></i></a>
-                                <a href="delete.html" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
+                                <a href="#" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons"></i></a>
                             </td>
                         </tr>
                         <tr>
