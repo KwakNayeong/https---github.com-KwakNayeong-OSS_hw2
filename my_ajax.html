@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Daily Diary</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+        body { padding-top: 50px; }
+    </style>
+    <script>
+    $(document).ready(function() {
+        loadDiaryData();
+
+        // 폼 제출 시 새 일기 추가
+        $("#commentform").submit(function(event) {
+            event.preventDefault();
+            addDiaryEntry();
+        });
+    });
+
+    function loadDiaryData() {
+        $.ajax({
+            url: "http://localhost:3001/diary",
+            method: "GET",
+            success: function(data) {
+                let diaryTable = '';
+                data.forEach((entry, index) => {
+                    diaryTable += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${entry.title}</td>
+                            <td>${entry.content}</td>
+                            <td>${entry.date}</td>
+                            <td>${entry.day}</td>
+                            <td>${entry.weather}</td>
+                            <td>
+                                <button onclick="editDiaryEntry(${entry.id})" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></button>
+                                <button onclick="deleteDiaryEntry(${entry.id})" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">delete</i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                $("table tbody").html(diaryTable);
+            },
+            error: function() {
+                alert("데이터를 불러오는 데 실패했습니다.");
+            }
+        });
+    }
+
+    function addDiaryEntry() {
+        const newEntry = {
+            title: $("#diary-title").val(),
+            content: $("#diary-content").val(),
+            date: $("#diary-date").val(),
+            day: $("#diary-day").val(),
+            weather: $("#diary-weather").val()
+        };
+
+        $.ajax({
+            url: "http://localhost:3001/diary",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(newEntry),
+            success: function() {
+                alert("새 일기가 추가되었습니다.");
+                loadDiaryData();
+            },
+            error: function() {
+                alert("일기를 추가하는 데 실패했습니다.");
+            }
+        });
+    }
+    function loadDiaryData() {
+        $.ajax({
+            url: "http://localhost:3001/diary",
+            method: "GET",
+            success: function(data) {
+                let diaryTable = '';
+                data.forEach((entry, index) => {
+                    diaryTable += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${entry.title}</td>
+                            <td>${entry.content}</td>
+                            <td>${entry.date}</td>
+                            <td>${entry.day}</td>
+                            <td>${entry.weather}</td>
+                            <td>
+                                <button onclick="editDiaryEntry(${entry.id})" class="btn btn-primary btn-sm" title="Edit"><i class="material-icons">edit</i></button>
+                                <button onclick="deleteDiaryEntry(${entry.id})" class="btn btn-danger btn-sm" title="Delete"><i class="material-icons">delete</i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                $("table tbody").html(diaryTable);
+            },
+            error: function() {
+                alert("데이터를 불러오는 데 실패했습니다.");
+            }
+        });
+    }
+
+    // 데이터 수정 모드 설정
+    function editDiaryEntry(id) {
+        $.ajax({
+            url: `http://localhost:3001/diary/${id}`,
+            method: "GET",
+            success: function(entry) {
+                $("#diary-id").val(entry.id); // 수정할 id 설정
+                $("#diary-title").val(entry.title);
+                $("#diary-content").val(entry.content);
+                $("#diary-date").val(entry.date);
+                $("#diary-day").val(entry.day);
+                $("#diary-weather").val(entry.weather);
+                $("button[type='submit']").text("Update"); // 버튼을 'Update'로 변경
+            },
+            error: function() {
+                alert("수정할 데이터를 불러오는 데 실패했습니다.");
+            }
+        });
+    }
+
+    // 데이터 수정 요청
+    function updateDiaryEntry(id) {
+        const updatedEntry = {
+            title: $("#diary-title").val(),
+            content: $("#diary-content").val(),
+            date: $("#diary-date").val(),
+            day: $("#diary-day").val(),
+            weather: $("#diary-weather").val()
+        };
+
+        $.ajax({
+            url: `http://localhost:3001/diary/${id}`,
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(updatedEntry),
+            success: function() {
+                alert("일기가 수정되었습니다.");
+                loadDiaryData();
+                clearForm();
+            },
+            error: function() {
+                alert("일기를 수정하는 데 실패했습니다.");
+            }
+        });
+    }
+
+    // 데이터 삭제 요청
+    function deleteDiaryEntry(id) {
+        if (confirm("이 일기를 삭제하시겠습니까?")) {
+            $.ajax({
+                url: `http://localhost:3001/diary/${id}`,
+                method: "DELETE",
+                success: function() {
+                    alert("일기가 삭제되었습니다.");
+                    loadDiaryData();
+                },
+                error: function() {
+                    alert("일기를 삭제하는 데 실패했습니다.");
+                }
+            });
+        }
+    }
+
+    // 폼 초기화
+    function clearForm() {
+        $("#diary-id").val('');
+        $("#diary-title").val('');
+        $("#diary-content").val('');
+        $("#diary-date").val('');
+        $("#diary-day").val('');
+        $("#diary-weather").val('');
+        $("button[type='submit']").text("추가"); // 버튼을 '추가'로 변경
+    }
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8">
+                <div class="blog__details__content">
+                    <div class="blog__details__form">
+                        <form id="commentform" onsubmit="return validateForm()">
+                            <div class="row">
+                                <div class="col-sm-8"><h2><b><span style='font-size:100px;'>&#128210;</span>Daily Diary</b></h2></div>
+                                <div class="col-lg-9 col-md-6" style="margin-bottom: 20px;">
+                                    <label for="diary-title">제목:</label>
+                                    <input id="diary-title" type="text" value="" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <label for="diary-weather">날씨:</label>
+                                    <input id="diary-weather" type="text" value="" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                </div>
+                                <div class="col-lg-3" style="margin-bottom: 20px;">
+                                    <label for="diary-date">날짜:</label>
+                                    <input id="diary-date" type="text" value="" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <label for="diary-day">요일:</label>
+                                    <input id="diary-day" type="text" value="" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                </div>
+                                <div class="col-lg-12">
+                                    <label for="diary-content">내용:</label>
+                                    <textarea id="diary-content" style="width: 100%; height: 150px; border: 1px solid #ccc; padding: 10px; border-radius: 5px;"></textarea>
+                                </div>
+                                <div class="col-lg-3 col-md-6"></div>
+                                        <div class="col-lg-3 col-md-6"></div>
+                                        <div class="col-lg-3 col-md-6"></div>
+                                        <div class="col-lg-3 col-md-6" style="margin-top: 20px;">
+                                            <button type="submit" style="float: right; padding: 10px; background-color: #cda6ed; color: white; border: 1px solid #ccc; border-radius: 10px;">
+                                                추가
+                                            </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>날짜</th>
+                    <th>요일</th>
+                    <th>날씨</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</body>
+</html>
